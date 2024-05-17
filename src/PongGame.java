@@ -8,13 +8,15 @@ public class PongGame extends JFrame {
     private final int PADDLE_WIDTH = 20;
     private final int PADDLE_HEIGHT = 100;
     private final int BALL_SIZE = 20;
-    private final int PADDLE_SPEED = 5;
+    private final int PADDLE_SPEED = 50;
     private int paddle1Y = HEIGHT / 2 - PADDLE_HEIGHT / 2;
     private int paddle2Y = HEIGHT / 2 - PADDLE_HEIGHT / 2;
     private int ballX = WIDTH / 2 - BALL_SIZE / 2;
     private int ballY = HEIGHT / 2 - BALL_SIZE / 2;
     private int ballXSpeed = 2;
     private int ballYSpeed = 2;
+    private int score1 = 0;
+    private int score2 = 0;
 
     public PongGame() {
         setTitle("Pong Game");
@@ -26,12 +28,12 @@ public class PongGame extends JFrame {
             @Override
             protected void paintComponent(Graphics g) {
                 super.paintComponent(g);
-                g.setColor(Color.BLACK);
-                g.fillRect(0, 0, WIDTH, HEIGHT);
+//                g.setColor(Color.BLACK);
+//                g.fillRect(200, 200, PADDLE_WIDTH, PADDLE_HEIGHT);
 
-                g.setColor(Color.WHITE);
+                g.setColor(Color.BLACK);
                 g.fillRect(0, paddle1Y, PADDLE_WIDTH, PADDLE_HEIGHT);
-                g.fillRect(WIDTH - PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT);
+                g.fillRect(getWidth()-PADDLE_WIDTH, paddle2Y, PADDLE_WIDTH, PADDLE_HEIGHT);
 
                 g.fillOval(ballX, ballY, BALL_SIZE, BALL_SIZE);
             }
@@ -66,14 +68,20 @@ public class PongGame extends JFrame {
 
                 if (ballY <= 0 || ballY >= HEIGHT - BALL_SIZE) {
                     ballYSpeed = -ballYSpeed;
+
+
                 }
 
                 if (ballX <= PADDLE_WIDTH && ballY >= paddle1Y && ballY <= paddle1Y + PADDLE_HEIGHT) {
                     ballXSpeed = -ballXSpeed;
+
+
                 }
 
                 if (ballX >= WIDTH - PADDLE_WIDTH - BALL_SIZE && ballY >= paddle2Y && ballY <= paddle2Y + PADDLE_HEIGHT) {
                     ballXSpeed = -ballXSpeed;
+
+                   
                 }
 
                 if (ballX <= 0 || ballX >= WIDTH - BALL_SIZE) {
@@ -81,6 +89,7 @@ public class PongGame extends JFrame {
                     ballY = HEIGHT / 2 - BALL_SIZE / 2;
                     ballXSpeed = -ballXSpeed;
                     ballYSpeed = -ballYSpeed;
+
                 }
 
                 panel.repaint();
